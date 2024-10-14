@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.foodorder.R
+import com.example.foodorder.databinding.FragmentListBinding
 
 
 class ListFragment : Fragment() {
+    private lateinit var binding: FragmentListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+    ): View {
+        binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 }
