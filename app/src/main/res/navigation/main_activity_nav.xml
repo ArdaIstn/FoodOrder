@@ -18,7 +18,11 @@
         android:id="@+id/detailFragment"
         android:name="com.example.foodorder.ui.fragments.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="food"
+            app:argType="com.example.foodorder.data.entity.Foods" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.foodorder.ui.fragments.CartFragment"

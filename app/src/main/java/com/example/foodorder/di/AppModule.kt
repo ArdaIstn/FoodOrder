@@ -23,7 +23,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoteSource(foodsApi: FoodsApi): RemoteFoodDataSource {
+    fun provideRemoteDataSource(foodsApi: FoodsApi): RemoteFoodDataSource {
         return RemoteFoodDataSource(foodsApi)
     }
 
