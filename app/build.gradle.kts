@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,14 +39,24 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
+
+kapt {
+    correctErrorTypes = true
+}
+
+
 
 dependencies {
 
+    //Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    // ktx
-    implementation("androidx.activity:activity-ktx:1.9.2")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
