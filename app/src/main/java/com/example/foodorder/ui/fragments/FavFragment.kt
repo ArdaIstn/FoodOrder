@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.foodorder.R
 import com.example.foodorder.databinding.FragmentFavBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FavFragment : Fragment() {
     private lateinit var binding: FragmentFavBinding
     override fun onCreateView(
