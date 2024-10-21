@@ -50,6 +50,7 @@ kapt {
 
 
 dependencies {
+    implementation (libs.lottie)
 
     //Hilt
     implementation(libs.hilt.android)
