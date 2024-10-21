@@ -3,6 +3,7 @@
     <style name="Base.Theme.FoodOrder" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/card_color</item>
     </style>
 
     <style name="Theme.FoodOrder" parent="Base.Theme.FoodOrder" />
