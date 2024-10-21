@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.foodorder.R
 import com.example.foodorder.databinding.FragmentListBinding
 import com.example.foodorder.ui.adapter.FoodListAdapter
 import com.example.foodorder.ui.viewmodel.ListViewModel
