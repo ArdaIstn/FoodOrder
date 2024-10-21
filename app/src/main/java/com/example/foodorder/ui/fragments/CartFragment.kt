@@ -17,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 
-
 @AndroidEntryPoint
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
@@ -35,7 +34,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvNoData.visibility = View.VISIBLE
+        binding.emptyAnim.visibility = View.VISIBLE
 
         observeCartFood()
         observeTotalPrice()
@@ -65,11 +64,11 @@ class CartFragment : Fragment() {
             cartFoodsAdapter.submitList(cartFood)
             // Sepet öğelerini kontrol et
             if (cartFood.isEmpty()) {
-                // Sepet boş, TextView görünür yap
-                binding.tvNoData.visibility = View.VISIBLE
+                // Sepet boş, anim görünür yap
+                binding.emptyAnim.visibility = View.VISIBLE
             } else {
-                // Sepet dolu, TextView'ı gizle
-                binding.tvNoData.visibility = View.GONE
+                // Sepet dolu, anim'ı gizle
+                binding.emptyAnim.visibility = View.GONE
             }
         }
     }
@@ -84,8 +83,7 @@ class CartFragment : Fragment() {
     private fun showClearCartDialog() {
         // AlertDialog ile kullanıcıya sepeti temizleme onayı sor
         MaterialAlertDialogBuilder(requireContext()).setTitle("Onayla")
-            .setMessage("Sepeti Onaylıyor Musunuz?")
-            .setPositiveButton("Evet") { dialog, which ->
+            .setMessage("Sepeti Onaylıyor Musunuz?").setPositiveButton("Evet") { dialog, which ->
                 // 'Evet' seçildiğinde sepeti temizle
                 cartViewModel.deleteAllFromCart("arda_isitan")
                 Snackbar.make(requireView(), "Siparişiniz Alınmıştır", Snackbar.LENGTH_SHORT).show()
