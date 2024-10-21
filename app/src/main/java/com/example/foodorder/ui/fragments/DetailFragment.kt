@@ -21,7 +21,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetailViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -39,29 +39,40 @@ class DetailFragment : Fragment() {
         showFoodImage(foodImage, binding.ivDetailPrice)
 
         // ViewModel'deki quantity ve totalPrice gözlemleniyor
-        viewModel.quantity.observe(viewLifecycleOwner) { quantity ->
+        detailViewModel.quantity.observe(viewLifecycleOwner) { quantity ->
             binding.tvQuantity.text = quantity.toString()
         }
 
-        viewModel.totalPrice.observe(viewLifecycleOwner) { totalPrice ->
+        detailViewModel.totalPrice.observe(viewLifecycleOwner) { totalPrice ->
             binding.tvTotalPrice.text = getString(R.string.currency_format, totalPrice)
         }
 
         // Arttırma butonu
         binding.btnInc.setOnClickListener {
-            viewModel.increaseQuantity(foodPrice)
+            detailViewModel.increaseQuantity(foodPrice)
         }
 
         // Azaltma butonu
         binding.btnDec.setOnClickListener {
-            viewModel.decreaseQuantity(foodPrice)
+            detailViewModel.decreaseQuantity(foodPrice)
         }
 
         // Sepete ekleme işlemi
         binding.btnInsert.setOnClickListener {
-            if ((viewModel.quantity.value ?: 0) > 0) {
-                viewModel.addToCart(foodName, foodImage, foodPrice, viewModel.quantity.value ?: 0, "ardaa_isitan")
-                findNavController().navigateUp()
+            if ((detailViewModel.quantity.value ?: 0) > 0) {
+                detailViewModel.addToCart(
+                    foodName,
+                    foodImage,
+                    foodPrice,
+                    detailViewModel.quantity.value ?: 0,
+                    "arda_isitan"
+                )
+
+                detailViewModel.isItemAdded.observe(viewLifecycleOwner) { isItemAdded ->
+                    if (isItemAdded) {
+                        findNavController().navigateUp()
+                    }
+                }
             }
         }
 
