@@ -34,26 +34,22 @@ class DetailFragment : Fragment() {
         val foodImage = food.yemek_resim_adi
 
         // Ekran ilk yüklendiğinde yiyecek bilgilerini göster
-        binding.tvDetailName.text = foodName
-        binding.tvDetailPrice.text = getString(R.string.currency_format, foodPrice)
-        showFoodImage(foodImage, binding.ivDetailPrice)
-
-        // ViewModel'deki quantity ve totalPrice gözlemleniyor
-        detailViewModel.quantity.observe(viewLifecycleOwner) { quantity ->
-            binding.tvQuantity.text = quantity.toString()
+        with(binding) {
+            tvDetailName.text = foodName
+            tvDetailPrice.text = getString(R.string.currency_format, foodPrice)
+            showFoodImage(foodImage, ivDetailPrice)
         }
-
-        detailViewModel.totalPrice.observe(viewLifecycleOwner) { totalPrice ->
-            binding.tvTotalPrice.text = getString(R.string.currency_format, totalPrice)
-        }
+        observeQuantity()
+        observeTotalPrice()
 
         // Arttırma butonu
-        binding.btnInc.setOnClickListener {
+        binding.ivInc.setOnClickListener {
             detailViewModel.increaseQuantity(foodPrice)
         }
 
+
         // Azaltma butonu
-        binding.btnDec.setOnClickListener {
+        binding.ivDec.setOnClickListener {
             detailViewModel.decreaseQuantity(foodPrice)
         }
 
@@ -79,13 +75,27 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun observeQuantity() {
+        detailViewModel.quantity.observe(viewLifecycleOwner) { quantity ->
+            binding.tvQuantity.text = "$quantity"
+        }
     }
+
+    private fun observeTotalPrice() {
+        detailViewModel.totalPrice.observe(viewLifecycleOwner) { totalPrice ->
+            binding.tvTotalPrice.text = getString(R.string.currency_format, totalPrice)
+        }
+    }
+
 
     private fun showFoodImage(imageName: String, imageView: ImageView) {
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/$imageName"
         Glide.with(this).load(url).into(imageView)
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
