@@ -22,6 +22,7 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var cartFoodsAdapter: CartListAdapter
+    private var isCartEmpty: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,15 +35,17 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.emptyAnim.visibility = View.VISIBLE
-
         observeCartFood()
         observeTotalPrice()
 
         binding.btnConfirm.setOnClickListener {
-            showClearCartDialog()
+            if (isCartEmpty) {
+                Snackbar.make(view, "Sepetiniz boş, sipariş veremezsiniz!", Snackbar.LENGTH_SHORT)
+                    .show()
+            } else {
+                showClearCartDialog()
+            }
         }
-
     }
 
     override fun onResume() {
@@ -62,13 +65,16 @@ class CartFragment : Fragment() {
     private fun observeCartFood() {
         cartViewModel.cartFood.observe(viewLifecycleOwner) { cartFood ->
             cartFoodsAdapter.submitList(cartFood)
-            // Sepet öğelerini kontrol et
-            if (cartFood.isEmpty()) {
-                // Sepet boş, anim görünür yap
+            isCartEmpty = cartFood.isEmpty()
+
+            if (isCartEmpty) {
+
                 binding.emptyAnim.visibility = View.VISIBLE
+
             } else {
-                // Sepet dolu, anim'ı gizle
+
                 binding.emptyAnim.visibility = View.GONE
+
             }
         }
     }
@@ -81,17 +87,12 @@ class CartFragment : Fragment() {
     }
 
     private fun showClearCartDialog() {
-        // AlertDialog ile kullanıcıya sepeti temizleme onayı sor
         MaterialAlertDialogBuilder(requireContext()).setTitle("Onayla")
             .setMessage("Sepeti Onaylıyor Musunuz?").setPositiveButton("Evet") { dialog, which ->
-                // 'Evet' seçildiğinde sepeti temizle
                 cartViewModel.deleteAllFromCart("arda_isitan")
                 Snackbar.make(requireView(), "Siparişiniz Alınmıştır", Snackbar.LENGTH_SHORT).show()
             }.setNegativeButton("Hayır") { dialog, which ->
-                // 'Hayır' seçildiğinde sadece dialogu kapat
                 dialog.dismiss()
             }.show()
     }
-
-
 }
