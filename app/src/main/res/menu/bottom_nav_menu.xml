@@ -5,13 +5,13 @@
     <item
         android:id="@+id/listFragment"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home" />
+        android:title="Ürünler" />
     <item
         android:id="@+id/favFragment"
         android:icon="@drawable/baseline_favorite_24"
-        android:title="Favourite" />
+        android:title="Favorilerim" />
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/baseline_shopping_cart_24"
-        android:title="Cart" />
+        android:title="Sepet" />
 </menu>
