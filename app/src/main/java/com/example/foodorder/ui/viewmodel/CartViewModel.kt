@@ -14,9 +14,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-// Burda listelenen yemeklerden istenilen ürünün silme işlemi yapılacak.
-// İstenilen adeti silme şeklinde de yapabilirsin.
-
 @HiltViewModel
 class CartViewModel @Inject constructor(private val foodsRepository: FoodRepository) : ViewModel() {
 
@@ -50,6 +47,7 @@ class CartViewModel @Inject constructor(private val foodsRepository: FoodReposit
                 }
             } catch (e: Exception) {
                 Log.e("getFoodsInCart", "Hata: ${e.message}")
+                _cartFood.value = emptyList()
                 calculateTotalPrice()
 
             }
@@ -66,7 +64,7 @@ class CartViewModel @Inject constructor(private val foodsRepository: FoodReposit
         }
     }
 
-    // Tüm ürünleri sepetten silen fonksiyon
+
     fun deleteAllFromCart(kullanici_adi: String) {
         viewModelScope.launch {
             try {
