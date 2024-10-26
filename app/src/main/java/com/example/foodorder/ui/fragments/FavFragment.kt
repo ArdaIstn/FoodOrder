@@ -12,10 +12,22 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavFragment : Fragment() {
     private lateinit var binding: FragmentFavBinding
+    private val favViewModel: FavViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavBinding.inflate(inflater, container, false)
+
+        favViewModel.favFoods.observe(viewLifecycleOwner) { favFoods ->
+            val adapter = FavFoodListAdapter(favFoods, favViewModel)
+            binding.rvFavList.adapter = adapter
+            binding.rvFavList.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            binding.noData.isVisible = favFoods.isEmpty()
+
+        }
+
         return binding.root
     }
 }
