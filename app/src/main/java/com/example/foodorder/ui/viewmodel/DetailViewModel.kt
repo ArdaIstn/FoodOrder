@@ -8,16 +8,14 @@ import com.example.foodorder.data.entity.CartFoods
 import com.example.foodorder.data.repository.FoodRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-// Bu viewmodelda,öncelikle seçilen adete göre yemek ekleme işlemini yapacağım.
-// İlgili apiye yemek ekleme isteği yollanır.
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(val foodRepository: FoodRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(private val foodRepository: FoodRepository) :
+    ViewModel() {
 
     private var _quantity = MutableLiveData(0)
     val quantity: LiveData<Int> get() = _quantity
