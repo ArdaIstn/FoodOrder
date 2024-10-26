@@ -50,7 +50,15 @@ kapt {
 
 
 dependencies {
-    implementation (libs.lottie)
+    implementation(libs.lottie)
+
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.room.compiler)
+
+    kapt(libs.androidx.room.room.compiler)
+
+    implementation(libs.androidx.room.ktx)
+
 
     //Hilt
     implementation(libs.hilt.android)
