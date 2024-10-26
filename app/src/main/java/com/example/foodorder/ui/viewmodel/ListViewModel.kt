@@ -16,7 +16,6 @@ class ListViewModel @Inject constructor(private val foodsRepository: FoodReposit
 
     private var allFoods: List<Foods> = listOf()
 
-
     init {
         fetchFoods()
     }
@@ -39,8 +38,30 @@ class ListViewModel @Inject constructor(private val foodsRepository: FoodReposit
                 )
             }
         }
-        _foodsList.value = filteredList
     }
 
 
+    fun insertFavFood(food: Foods) {
+        viewModelScope.launch {
+            foodsRepository.insertFavFoods(food)
+        }
+    }
+
+
+    fun deleteFavFood(foodId: Int) {
+        viewModelScope.launch {
+            foodsRepository.deleteFavFoods(foodId)
+        }
+    }
+
+
+    fun isFavorite(food_id: Int): LiveData<Boolean> {
+        val isFavoriteLiveData = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            isFavoriteLiveData.value = foodsRepository.isFavorite(food_id) > 0
+        }
+        return isFavoriteLiveData
+    }
 }
+
+
