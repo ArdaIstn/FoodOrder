@@ -63,6 +63,7 @@ class CartFragment : Fragment() {
             adapter = cartFoodsAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            swipeToDelete(this)
         }
     }
 
@@ -112,5 +113,25 @@ class CartFragment : Fragment() {
             }
     }
 
-
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedItem = (cartFoodsAdapter.cartList)[viewHolder.adapterPosition]
+                cartViewModel.deleteFromCart(deletedItem.sepet_yemek_id, "arda_isitan")
+                Snackbar.make(
+                    requireView(), "${deletedItem.yemek_adi} Silindi", Snackbar.LENGTH_SHORT
+                ).setAction("Geri Al") {
+                    cartViewModel.addToCart(
+                        deletedItem.yemek_adi,
+                        deletedItem.yemek_resim_adi,
+                        deletedItem.yemek_fiyat,
+                        deletedItem.yemek_siparis_adet,
+                        "arda_isitan"
+                    )
+                }.show()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
 }
