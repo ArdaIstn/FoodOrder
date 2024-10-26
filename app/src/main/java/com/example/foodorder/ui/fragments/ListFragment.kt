@@ -11,30 +11,55 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.foodorder.databinding.FragmentListBinding
 import com.example.foodorder.ui.adapter.FoodListAdapter
 import com.example.foodorder.ui.viewmodel.ListViewModel
-import com.google.android.material.search.SearchBar
-import com.google.android.material.search.SearchView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
     private val listViewModel: ListViewModel by viewModels()
+    private lateinit var listFoodsAdapter: FoodListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentListBinding.inflate(inflater, container, false)
 
+        setupRecyclerView()
 
-        listViewModel.foodsList.observe(viewLifecycleOwner) { foodList ->
-            val foodsAdapter = FoodListAdapter(foodList)
-            with(binding) {
-                rv.adapter = foodsAdapter
-                rv.layoutManager =
-                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                noData.isVisible = foodList.isEmpty()
-            }
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeFoodsList()
+        searchFoods()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.searchView.setQuery("", false)
+        binding.searchView.clearFocus()
+
+    }
+
+    private fun setupRecyclerView() {
+        listFoodsAdapter = FoodListAdapter(listViewModel, viewLifecycleOwner)
+        binding.rv.apply {
+            adapter = listFoodsAdapter
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
+    }
 
+    private fun observeFoodsList() {
+        listViewModel.foodsList.observe(viewLifecycleOwner) { foodList ->
+            listFoodsAdapter.submitList(foodList)
+            binding.noData.isVisible = foodList.isEmpty()
+        }
+    }
+
+    private fun searchFoods() {
         binding.searchView.setOnQueryTextListener(object :
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -52,16 +77,6 @@ class ListFragment : Fragment() {
                 return true
             }
         })
-
-        return binding.root
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.searchView.setQuery("", false)
-        binding.searchView.clearFocus()
 
     }
 
