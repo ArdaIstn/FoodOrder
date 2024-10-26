@@ -2,4 +2,24 @@
     <string name="app_name">FoodOrder</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="currency_format">%1$d ₺</string>
+    <string name="cart_title">Sepetim</string>
+    <string name="detail_title">Ürün Detay</string>
+    <string name="delivery_adress">Teslimat Adresi</string>
+    <string name="home">Evim</string>
+    <string name="list_title">Ürünler</string>
+    <string name="add_to_cart">Sepete Ekle</string>
+    <string name="total_price">Toplam</string>
+    <string name="confirm_cart">Sepeti Onayla</string>
+    <string name="shipping_text">Gönderim Ücreti</string>
+    <string name="cart_food_price">Adet Fiyat: %1$s ₺</string>
+    <string name="cart_food_number">Adet: %1$s</string>
+    <string name="cart_food_total_price">%1$s ₺</string>
+    <string name="food_price">₺ %1$s</string>
+    <string name="cart_total_price">₺%1$s</string>
+    <string name="shipping_price">₺0</string>
+    <string name="delivery_time">25-35dk</string>
+    <string name="free_delivery">Ücretsiz Teslimat</string>
+    <string name="discount">İndirim %10</string>
+    <string name="order">Siparişiniz alınmıştır.Bizi tercih ettiğiniz için teşekkür ederiz.Afiyet olsun!</string>
 </resources>
