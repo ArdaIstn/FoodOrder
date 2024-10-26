@@ -1,10 +1,7 @@
 package com.example.foodorder
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodorder.databinding.ActivityMainBinding
@@ -28,7 +25,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavView() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        bottomNavView = binding.botttomNavView
+        bottomNavView = binding.bottomNavView
         bottomNavView.setupWithNavController(navHostFragment.navController)
     }
+
 }
