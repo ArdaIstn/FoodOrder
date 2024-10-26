@@ -1,6 +1,5 @@
 package com.example.foodorder.data.datasource.remotedatasource
 
-import com.example.foodorder.data.entity.CartFoods
 import com.example.foodorder.data.entity.CartFoodsResponse
 import com.example.foodorder.data.entity.Foods
 import com.example.foodorder.retrofit.FoodsApi
