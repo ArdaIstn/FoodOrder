@@ -2,9 +2,6 @@ package com.example.foodorder.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodorder.R
@@ -14,8 +11,9 @@ import com.example.foodorder.ui.viewmodel.CartViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class CartListAdapter(
-    private val cartViewModel: CartViewModel
-) : ListAdapter<CartFoods, CartListAdapter.ViewHolder>(CartFoodsDiffCallback()) {
+    val cartList: List<CartFoods>, private val cartViewModel: CartViewModel
+) : RecyclerView.Adapter<CartListAdapter.ViewHolder>() {
+
 
     class ViewHolder(val binding: CartItemDesignBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,8 +23,9 @@ class CartListAdapter(
         return ViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val food = getItem(position) // ListAdapter'da getItem() kullanılır
+        val food = cartList[position]
         holder.binding.tvCartName.text = food.yemek_adi
         holder.binding.tvCartPrice.text =
             holder.itemView.context.getString(R.string.cart_food_price, food.yemek_fiyat.toString())
@@ -49,16 +48,9 @@ class CartListAdapter(
         Glide.with(holder.itemView.context).load(url).into(holder.binding.ivCart)
     }
 
-    // DiffUtil callback sınıfı
-    class CartFoodsDiffCallback : DiffUtil.ItemCallback<CartFoods>() {
-        override fun areItemsTheSame(oldItem: CartFoods, newItem: CartFoods): Boolean {
-            // İki öğenin aynı olup olmadığını kontrol et (örneğin ID kullanarak)
-            return oldItem.sepet_yemek_id == newItem.sepet_yemek_id
-        }
-
-        override fun areContentsTheSame(oldItem: CartFoods, newItem: CartFoods): Boolean {
-            // İki öğenin içeriklerinin aynı olup olmadığını kontrol et
-            return oldItem == newItem
-        }
+    override fun getItemCount(): Int {
+        return cartList.size
     }
+
+
 }
