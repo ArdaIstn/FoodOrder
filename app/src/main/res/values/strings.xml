@@ -22,4 +22,7 @@
     <string name="free_delivery">Ücretsiz Teslimat</string>
     <string name="discount">İndirim %10</string>
     <string name="order">Siparişiniz alınmıştır.Bizi tercih ettiğiniz için teşekkür ederiz.Afiyet olsun!</string>
+    <string name="fav">Favorilerim</string>
+    <string name="delivery_minute">30 Dakika</string>
+    <string name="Free_Delivery">Ücretsiz Gönderim</string>
 </resources>
