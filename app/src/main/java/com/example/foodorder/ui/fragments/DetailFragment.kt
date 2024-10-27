@@ -63,8 +63,6 @@ class DetailFragment : Fragment() {
                 detailViewModel.isItemAdded.observe(viewLifecycleOwner) { isItemAdded ->
                     if (isItemAdded) {
                         findNavController().navigateUp()
-                        Snackbar.make(requireView(), "Ürün sepete eklendi", Snackbar.LENGTH_SHORT)
-                            .show()
                     }
                 }
 
