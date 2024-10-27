@@ -88,7 +88,6 @@ class CartFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext()).setTitle("Onayla")
             .setMessage("Sepeti Onaylıyor Musunuz?").setPositiveButton("Evet") { dialog, _ ->
                 cartViewModel.deleteAllFromCart("arda_isitan")
-                Snackbar.make(requireView(), "Siparişiniz Alınmıştır", Snackbar.LENGTH_SHORT).show()
                 showAnimationDialog()
                 findNavController().navigateUp()
             }.setNegativeButton("Hayır") { dialog, _ ->
