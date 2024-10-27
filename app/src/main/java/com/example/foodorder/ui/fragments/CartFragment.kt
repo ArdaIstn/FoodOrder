@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -89,6 +90,7 @@ class CartFragment : Fragment() {
                 cartViewModel.deleteAllFromCart("arda_isitan")
                 Snackbar.make(requireView(), "Siparişiniz Alınmıştır", Snackbar.LENGTH_SHORT).show()
                 showAnimationDialog()
+                findNavController().navigateUp()
             }.setNegativeButton("Hayır") { dialog, _ ->
                 dialog.dismiss()
             }.show()
