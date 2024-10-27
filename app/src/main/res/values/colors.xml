@@ -5,6 +5,6 @@
     <color name="background_color">#B7E0FF</color>
     <color name="card_color">#FFD09B</color>
     <color name="red">#E90505</color>
-    <color name="nav_item_color">#2196F3</color> <!-- Aktif durum rengi -->
-    <color name="nav_item_ripple_color">@color/card_color</color> <!-- Ripple efekt rengi -->
+    <color name="bottom_nav_selected_icon_color">#fff27a1a</color>
+    <color name="bottom_nav_icon_color">#B0ADAB</color>
 </resources>
